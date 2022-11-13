@@ -1,0 +1,86 @@
+<!-- 
+ File Name : survey.ejs
+ COMP228 - Web Application Developmnet
+ Summer 2021 Group 6
+ Mighty Bunch
+
+ Developers: 
+ Sarabun Tohura - 300685525
+ Yerim Cho - 301143325
+ Mohammed Husain - 301149144
+ Mostafa Asaad - 301173762
+ Chaehyun Lee - 301084271
+ Viktoriia Romaniuk - 301079072
+
+ Web App Name : Migthy Survey
+ Description : Users can create new survey. 
+ There are two types of surveys, True or False / Scale.
+ Only logged-in users can answer the survey,
+ and only the creator of survey can edit / delte the survey. 
+-->
+<%- include ../partials/header.ejs %>
+
+<%- include ../partials/main_nav.ejs %>
+
+<!-- Content for the Edit page -->
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+          <!--<h1><%= title %></h1>-->
+            <form class="form" method="POST">
+              <div class="form-group">
+                <!--label-- for="NameTextField">Title</!--label-->
+                <h2 style="color: white;" ><%= title %></h2>
+                
+                <% for (i=0; i < 5; i++) { %> 
+
+                  <div class="d-flex flex-column bd-highlight mb-3"></div>
+                  <div style="color: white;" class="h5 p-1 bd-highlight"><%= survey.question[i] %></div>
+
+                  <% if ( survey.type == "True/False") { %>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="a<%= i %>" id="radio1-<%= i %>" value="true">
+                      <label style="color: white;" class="form-check-label" for="radio2-<%= i %>">True</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="a<%= i %>" id="radio2-<%= i %>" value="false">
+                      <label style="color: white;" class="form-check-label" for="radio1-<%= i %>">False</label>
+                    </div>
+
+                  <% } %>
+
+                  <% if ( survey.type == "Scale") { %>
+                    <% let scale = ['very bad','bad', 'good', 'very good', 'excellent'] %>
+                    <% for (j=0; j < 5; j++) { %> 
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="a<%= i %>" id="radio<%= i %>-<%= j %>" value="<%= scale[j-1] %>">
+                        <label class="form-check-label" style="color: white;" for="radio<%= i %>-<%= j %>"><%= scale[j-1] %></label>
+                      </div>
+                    <% } %>
+                  <% } %>
+                  
+                <% } %>
+
+                
+
+              <div>
+                <button class="btn btn-primary " type="submit">
+                  <i class="fas fa-edit"></i> Submit</button>
+              
+                  <a href="/survey-list" class="btn btn-warning">
+                      <i class="fas fa-undo"></i> Cancel</a>
+              </div>
+              
+            </form>
+
+           
+        </div>
+
+    </div>
+</div>
+
+<br/><br/><br/>
+
+<%- include ../partials/bottom_nav.ejs %>  
+
+<%- include ../partials/footer.ejs %>
